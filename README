@@ -1,5 +1,5 @@
 
-String/CRC/Cksum version 0.01
+String/CRC/Cksum version 0.02
 =============================
 
 The String::CRC::Cksum module calculates a 32 bit CRC.  It generates the
@@ -13,9 +13,8 @@ as well as of strings.
 Beware: consider proper use of binmode() if you are on a non-UNIX platform
 or processing files derived from other platforms.
 
-There is plenty of scope for a Cksum object which can be fed data repeat-
-edly and then yields the sum when asked.  However, that will have to wait
-for some other 60 seconds... Stay tooned for version 0.10.
+The algorithm can be accessed OO style, allowing progressive supply
+of data, or with a convenience function call which wraps up all the work.
 
 INSTALLATION
 

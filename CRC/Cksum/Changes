@@ -1,6 +1,0 @@
-Revision history for Perl extension String::CRC::Cksum.
-
-0.01  Wed Oct 22 10:29:01 2003
-	- original version; created by h2xs 1.22 with options
-		-AX -n String::CRC::Cksum
-
