@@ -10,7 +10,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw(cksum);
 our @EXPORT = qw();
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use fields qw(cksum size);
 
@@ -62,18 +62,23 @@ sub reset {
 sub add {
     use integer;
     my String::CRC::Cksum $self = shift;
+    my $cksum = $self->{cksum};
+    my $size = $self->{size};
 
     while(@_) {
         my $n = length $_[0];
 
         for(my $i = 0; $i < $n; ++$i) {
             my $c = unpack 'C', substr $_[0], $i, 1;
-            $self->{cksum} = ($self->{cksum} << 8) ^ $crctab[($self->{cksum} >> 24) ^ $c];
-            ++$self->{size};
+            $cksum = ($cksum << 8) ^ $crctab[($cksum >> 24) ^ $c];
+            ++$size;
         }
 
     }
     continue { shift }
+
+    $self->{cksum} = $cksum;
+    $self->{size} = $size;
 
     return $self;
 }   # add
@@ -131,10 +136,10 @@ sub cksum(@) {
     my $sum = String::CRC::Cksum->new;
 
     while(@_) {
-        if(! ref $_[0])
-            { $sum->add($_[0]) }
-        else
+        if(ref $_[0])
             { $sum->addfile($_[0]) }
+        else
+            { $sum->add($_[0]) }
     }
     continue { shift }
 
@@ -167,9 +172,9 @@ B<OO style>:
   ...
   ($cksum, $size) = $cksum->result;
 
-  $cksum1->addfile(*file1);     # note: adding many files
-  $cksum1->addfile(*file2);     # is probably a silly thing
-  $cksum1->addfile(*file3);     # to do, but you *could*...
+  $cksum1->addfile(\*file1);     # note: adding many files
+  $cksum1->addfile(\*file2);     # is probably a silly thing
+  $cksum1->addfile(\*file3);     # to do, but you *could*...
   ...
 
 B<Functional style>:
@@ -179,9 +184,9 @@ B<Functional style>:
 
   ($cksum, $size) = cksum("string1", "string2", ...);
 
-  $cksum = cksum(*FILE);
+  $cksum = cksum(\*FILE);
 
-  ($cksum, $size) = cksum(*FILE);
+  ($cksum, $size) = cksum(\*FILE);
 
 =head1 DESCRIPTION
 
@@ -194,6 +199,9 @@ a non-negative integral number in the range 0..2^32-1.
 
 Despite its name, this module is able to compute the
 checksum of files as well as of strings.
+Just pass in a reference to a filehandle,
+or a reference to any object that can respond to
+a read() call and eventually return 0 at "end of file".
 
 Beware: consider proper use of binmode()
 if you are on a non-UNIX platform
@@ -243,7 +251,7 @@ The returned size of a reset item will be zero.
 Progressively inject data into the Cksum object
 prior to requesting the final result.
 
-=item B<addfile(*FILE, ...)>
+=item B<addfile(\*FILE, ...)>
 
 Progressively inject all (remaining) data from the file
 into the Cksum object prior to requesting the final result.
@@ -274,6 +282,11 @@ It will instantiate a Cksum object,
 apply the data and return the result
 in one swift, sweet operation.
 See how much I'm looking after you?
+
+NOTE: the filehandles must be passed as \*FD
+because I'm detecting a file handle using the ref() function.
+Therefore any blessed IO handle will also satisfy ref()
+and be interpreted as a file handle.
 
 =back
 
