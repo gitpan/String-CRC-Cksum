@@ -1,16 +1,17 @@
 
 package String::CRC::Cksum;
 
-use 5.6.1;
+use 5.006_001;
 use strict;
 use warnings;
 use Carp;
+use integer;
 
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw(cksum);
 our @EXPORT = qw();
-our $VERSION = '0.03';
+our $VERSION = '0.90';
 
 use fields qw(cksum size);
 
@@ -60,7 +61,6 @@ sub reset {
 
 
 sub add {
-    use integer;
     my String::CRC::Cksum $self = shift;
     my $cksum = $self->{cksum};
     my $size = $self->{size};
@@ -70,7 +70,7 @@ sub add {
 
         for(my $i = 0; $i < $n; ++$i) {
             my $c = unpack 'C', substr $_[0], $i, 1;
-            $cksum = ($cksum << 8) ^ $crctab[($cksum >> 24) ^ $c];
+            $cksum = (0xFFFFFFFF & ($cksum << 8)) ^ $crctab[(0xFF & ($cksum >> 24)) ^ $c];
             ++$size;
         }
 
@@ -102,19 +102,19 @@ sub addfile {
 
 
 sub peek {
-    use integer;
     my String::CRC::Cksum $self = shift;
     my $cksum = $self->{cksum};
     my $size = $self->{size};
 
     # Extend with the length of the data
     while($size != 0) {
-        my $c = $size & 0377;
+        my $c = $size & 0xFF;
         $size >>= 8;
-        $cksum = ($cksum << 8) ^ $crctab[($cksum >> 24) ^ $c];
+        $cksum = (0xFFFFFFFF & ($cksum << 8)) ^ $crctab[(0xFF & ($cksum >> 24)) ^ $c];
     }
     $cksum = ~ $cksum;
 
+    # positivise the result even on a 32 bit processor
     no integer;
     my $crc = $cksum;
     $crc += 4294967296 if $crc < 0;

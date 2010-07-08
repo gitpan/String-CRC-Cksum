@@ -1,5 +1,5 @@
 
-String/CRC/Cksum version 0.02
+String/CRC/Cksum version 0.90
 =============================
 
 The String::CRC::Cksum module calculates a 32 bit CRC.  It generates the
@@ -15,6 +15,8 @@ or processing files derived from other platforms.
 
 The algorithm can be accessed OO style, allowing progressive supply
 of data, or with a convenience function call which wraps up all the work.
+
+The algorithm works properly on 64 bit platforms from version 0.90.
 
 INSTALLATION
 
@@ -36,17 +38,9 @@ Copyright disclaimed 2003 by Andrew Hamm
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
 
-Since I collected the algorithm from the Open Group web pages, they might
-have some issues but I doubt it.  Let better legal minds than mine deter-
-mine the issues if you need.
-
-[hopefully the CPAN and PAUSE administrators will understand the issues
-better, and will replace this entire section with something reasonable
-- hint hint, please folks]
-
 The algorithm came from here:
 
 http://www.opengroup.org/onlinepubs/007904975/utilities/cksum.html
 
-legal pages will be nearby.
+It's legal pages will be nearby.
 

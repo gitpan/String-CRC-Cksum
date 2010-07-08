@@ -1,5 +1,8 @@
 Revision history for Perl extension String::CRC::Cksum.
 
+0.90  Thu Jul  8 13:14:52 2010
+        - seriously overdue fix of overflow errors on 64 bit platforms
+
 0.03  Tue Oct 28 14:47:47 2003
         - trivial optimisation in add() method
         - fixed documentation to show \*FILE instead of
@@ -18,5 +21,5 @@ Revision history for Perl extension String::CRC::Cksum.
         - created the tarball with appropriate paths!
 
 0.01  Wed Oct 22 10:29:01 2003
-	- original version; created by h2xs 1.22 with options
-		-AX -n String::CRC::Cksum
+        - original version; created by h2xs 1.22 with options
+                -AX -n String::CRC::Cksum

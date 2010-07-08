@@ -22,7 +22,7 @@ while(<DATA>) {
     $lines .= $_;
     print $handle $_;
 }
-## cksum of the pome is CKSUM SIZE - let's prove it
+## cksum of the poem is CKSUM SIZE - let's prove it
 
 my $cksum = String::CRC::Cksum->new;
 ($x, $y) = $cksum->result;
