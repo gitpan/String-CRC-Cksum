@@ -11,7 +11,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw(cksum);
 our @EXPORT = qw();
-our $VERSION = '0.90';
+our $VERSION = '0.91';
 
 use fields qw(cksum size);
 
@@ -167,10 +167,10 @@ B<OO style>:
   $cksum->add("string2");
   $cksum->add("string3", "string4", "string5", ...);
   ...
-  ($cksum, $size) = $cksum->peek;
+  ($ck, $sz) = $cksum->peek;
   $cksum->add("string6", ...);
   ...
-  ($cksum, $size) = $cksum->result;
+  ($ck, $sz) = $cksum->result;
 
   $cksum1->addfile(\*file1);     # note: adding many files
   $cksum1->addfile(\*file2);     # is probably a silly thing
@@ -180,13 +180,13 @@ B<OO style>:
 B<Functional style>:
   use String::CRC::Cksum qw(cksum);
 
-  $cksum = cksum("string1", "string2", ...);
+  $ck = cksum("string1", "string2", ...);
 
-  ($cksum, $size) = cksum("string1", "string2", ...);
+  ($ck, $sz) = cksum("string1", "string2", ...);
 
-  $cksum = cksum(\*FILE);
+  $ck = cksum(\*FILE);
 
-  ($cksum, $size) = cksum(\*FILE);
+  ($ck, $sz) = cksum(\*FILE);
 
 =head1 DESCRIPTION
 
@@ -302,23 +302,13 @@ http://www.opengroup.org/onlinepubs/007904975/utilities/cksum.html
 
 =head1 AUTHOR
 
-Andrew Hamm, E<lt>ahamm@cpan.orgE<gt>.
+Andrew Clarke, E<lt>ahamm@cpan.orgE<gt>.
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright disclaimed 2003 by Andrew Hamm
+Copyright disclaimed 2003 by Andrew Clarke
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
-
-Since I collected the algorithm
-from the Open Group web pages,
-they might have some issues but I doubt it.
-Let better legal minds than mine
-determine the issues if you need.
-[hopefully the CPAN and PAUSE administrators and/or testers
-will understand the issues better,
-and will replace this entire section
-with something reasonable - hint hint.]
 
 =cut

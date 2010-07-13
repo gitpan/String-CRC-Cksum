@@ -1,5 +1,5 @@
 
-String/CRC/Cksum version 0.90
+String/CRC/Cksum version 0.91
 =============================
 
 The String::CRC::Cksum module calculates a 32 bit CRC.  It generates the
@@ -33,7 +33,7 @@ This module has no dependencies beyond the standard Carp and Exporter.
 
 COPYRIGHT AND LICENCE
 
-Copyright disclaimed 2003 by Andrew Hamm
+Copyright disclaimed 2003 by Andrew Clarke
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

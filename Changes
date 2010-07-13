@@ -1,5 +1,9 @@
 Revision history for Perl extension String::CRC::Cksum.
 
+0.91  Tue Jul 13 12:16:54 2010
+        - POD samples was stupidly using the variable $cksum as both
+          the object and to hold the result of the calculation.
+
 0.90  Thu Jul  8 13:14:52 2010
         - seriously overdue fix of overflow errors on 64 bit platforms
 

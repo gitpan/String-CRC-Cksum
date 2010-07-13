@@ -6,5 +6,5 @@ WriteMakefile(
     'NAME'		=> 'String::CRC::Cksum',
     'VERSION_FROM'	=> 'Cksum.pm', # finds $VERSION
     'PREREQ_PM'		=> {}, # e.g., Module::Name => 1.1
-    'AUTHOR'            => 'Andrew Hamm <ahamm@programmer.net>'
+    'AUTHOR'            => 'Andrew Clarke <ahamm@programmer.net>'
 );
